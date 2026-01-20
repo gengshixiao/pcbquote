@@ -30,14 +30,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, history }) =
       </button>
 
       <div className="p-4 flex items-center gap-3">
-        <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center shrink-0">
-          <Database className="text-white" size={18} />
+        <div className="w-8 h-8 flex items-center justify-center shrink-0">
+          <img src="http://1.15.1.90:3000/icon/logo.svg" alt="logo" className="w-full h-full object-contain" />
         </div>
-        {isOpen && <span className="font-bold text-slate-800 tracking-tight">SiliconBOM</span>}
+        {isOpen && <span className="font-bold text-slate-800 tracking-tight text-lg">造物潭</span>}
       </div>
 
       <div className="px-3 py-2">
-        <button className={`w-full flex items-center gap-2 ${isOpen ? 'px-4 justify-start' : 'justify-center px-0'} py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors shadow-sm`}>
+        <button className={`w-full flex items-center gap-2 ${isOpen ? 'px-4 justify-start' : 'justify-center px-0'} py-2 bg-teal-600 hover:bg-teal-700 text-white rounded text-sm transition-colors shadow-sm`}>
           <Plus size={18} />
           {isOpen && <span>新建会话</span>}
         </button>
@@ -50,7 +50,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, history }) =
             <div className="space-y-1 px-2">
               {history.map(item => (
                 <button key={item.id} className="w-full text-left px-3 py-2 rounded text-sm text-slate-600 hover:bg-slate-50 flex items-center gap-3 truncate transition-colors group">
-                  <MessageSquare size={16} className="text-slate-400 group-hover:text-blue-500" />
+                  <MessageSquare size={16} className="text-slate-400 group-hover:text-teal-500" />
                   <span className="truncate">{item.title}</span>
                 </button>
               ))}
@@ -59,8 +59,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, history }) =
         )}
         {!isOpen && (
           <div className="flex flex-col items-center gap-4">
-            <History size={20} className="text-slate-400 cursor-pointer hover:text-blue-500" />
-            <Search size={20} className="text-slate-400 cursor-pointer hover:text-blue-500" />
+            <History size={20} className="text-slate-400 cursor-pointer hover:text-teal-500" />
+            <Search size={20} className="text-slate-400 cursor-pointer hover:text-teal-500" />
           </div>
         )}
       </div>

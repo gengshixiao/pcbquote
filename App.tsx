@@ -25,7 +25,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-full bg-[#F8FAF9] overflow-hidden">
+    <div className="flex h-screen w-full bg-[#F0F4F4] overflow-hidden">
       <Sidebar 
         isOpen={isSidebarOpen} 
         onToggle={() => setIsSidebarOpen(!isSidebarOpen)} 
@@ -34,12 +34,12 @@ const App: React.FC = () => {
       <main className="flex-1 flex flex-col min-w-0 bg-white shadow-sm">
         <header className="h-14 border-b border-slate-200 flex items-center justify-between px-6 bg-white shrink-0">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-slate-700">PCB 智能报价助手</span>
-            <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold uppercase tracking-wider">Enterprise</span>
+            <span className="text-sm font-semibold text-slate-700">造物潭 · 智能报价</span>
+            <span className="px-2 py-0.5 rounded bg-teal-50 text-teal-600 text-[10px] font-bold uppercase tracking-wider">Enterprise</span>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 text-xs text-slate-400">
-              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+              <div className="w-2 h-2 rounded-full bg-teal-500"></div>
               <span>系统运行正常</span>
             </div>
             <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200 cursor-pointer">
