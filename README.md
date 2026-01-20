@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 造物潭 - PCB 智能报价专家原型
 
-# Run and deploy your AI Studio app
+这是一个纯前端的静态原型项目，用于展示 PCB 智能报价助手的界面和基本交互逻辑。
 
-This contains everything you need to run your app locally.
+## 项目特点
 
-View your app in AI Studio: https://ai.studio/apps/drive/1xncIPh0uhFz33-E3oiyyTi-a30fsXeFL
+- **纯前端架构**：基于 HTML5, Tailwind CSS (CDN) 和 原生 JavaScript。
+- **轻量化**：移除了 React/TypeScript 等重型依赖，直接在浏览器中运行。
+- **快速部署**：支持 GitHub Pages 或任何静态文件托管服务。
 
-## Run Locally
+## 本地运行
 
-**Prerequisites:**  Node.js
+1. 安装依赖（仅用于 Vite 开发服务器）：
+   ```bash
+   npm install
+   ```
 
+2. 启动开发服务器：
+   ```bash
+   npm run dev
+   ```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+或者直接在浏览器中打开 `index.html`（建议使用 Live Server 以获得完整体验）。
+
+## 技术栈
+
+- **UI 框架**: Tailwind CSS (via CDN)
+- **图标库**: Lucide Icons
+- **构建工具**: Vite (仅作开发辅助)
