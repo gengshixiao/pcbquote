@@ -1,7 +1,0 @@
-{
-  "name": "PCB Intelligent Quotation Assistant",
-  "description": "A professional B2B SaaS platform for PCB/PCBA quotation, featuring engineering file analysis, DFM pre-checks, dynamic cost prediction, and supply chain risk alerts.",
-  "requestFramePermissions": [
-    "camera"
-  ]
-}

@@ -4,43 +4,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PCB 智能报价助手 - 专业电子供应链决策平台</title>
+    <title>造物潭 - PCB 智能报价助手</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        :root {
+            --brand-green: #10B981; /* Emerald 500 */
+            --brand-green-hover: #059669; /* Emerald 600 */
+            --brand-green-light: #ECFDF5; /* Emerald 50 */
+        }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #F8FAF9;
         }
-        ::-webkit-scrollbar {
-            width: 6px;
+        .sidebar-item-active {
+            background-color: var(--brand-green-light);
+            color: var(--brand-green-hover);
+            border-right: 3px solid var(--brand-green);
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        .chat-input-focus:focus-within {
+            border-color: var(--brand-green);
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #cbd5e1;
+        /* Custom "Hand-drawn" style technical icons */
+        .tech-icon {
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
         }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
-<body class="text-slate-900">
-    <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
+<body class="text-slate-900 overflow-hidden">
+    <div class="flex h-screen w-full bg-[#F8FAF9]">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 transition-all duration-300 border-r border-slate-200 flex flex-col bg-white shrink-0 relative">
+            <button id="toggle-sidebar" class="absolute -right-3 top-20 w-6 h-6 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-400 hover:text-emerald-600 shadow-sm z-10">
+                <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            </button>
+
+            <!-- Brand Logo & Name -->
+            <div class="p-4 flex items-center gap-2">
+                <img src="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/15024f893643e826a01f6296e6541fec.png" alt="造物潭 Logo" class="w-8 h-8 shrink-0">
+                <span class="sidebar-label font-bold text-slate-800 text-lg tracking-tight">造物潭</span>
+            </div>
+
+            <div class="px-3 py-2">
+                <button class="w-full flex items-center gap-2 px-4 py-2 bg-[#10B981] hover:bg-[#059669] text-white rounded text-sm transition-colors shadow-sm justify-start">
+                    <i data-lucide="plus" class="w-4.5 h-4.5"></i>
+                    <span class="sidebar-label font-medium">开启新分析</span>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto py-4">
+                <div class="sidebar-label px-4 py-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">最近记录</div>
+                <div class="space-y-1 px-2">
+                    <button class="w-full text-left px-3 py-2 rounded text-sm text-slate-600 hover:bg-slate-50 flex items-center gap-3 truncate transition-colors group">
+                        <i data-lucide="file-text" class="w-4 h-4 text-slate-400 group-hover:text-emerald-500"></i>
+                        <span class="truncate">智能扫地机主控板报价...</span>
+                    </button>
+                    <button class="w-full text-left px-3 py-2 rounded text-sm text-slate-600 hover:bg-slate-50 flex items-center gap-3 truncate transition-colors group">
+                        <i data-lucide="file-text" class="w-4 h-4 text-slate-400 group-hover:text-emerald-500"></i>
+                        <span class="truncate">工业网关 6层板打样...</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-100">
+                <div class="space-y-1">
+                    <button class="w-full flex items-center gap-3 px-3 py-2 rounded text-sm text-slate-600 hover:bg-slate-50 transition-colors">
+                        <i data-lucide="shield-check" class="text-slate-400 w-4.5 h-4.5"></i>
+                        <span class="sidebar-label">工程合规性</span>
+                    </button>
+                    <button class="w-full flex items-center gap-3 px-3 py-2 rounded text-sm text-slate-600 hover:bg-slate-50 transition-colors">
+                        <i data-lucide="settings" class="text-slate-400 w-4.5 h-4.5"></i>
+                        <span class="sidebar-label">系统设置</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col min-w-0 bg-white shadow-sm overflow-hidden">
+            <header class="h-14 border-b border-slate-200 flex items-center justify-between px-6 bg-white shrink-0">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-semibold text-slate-700">PCB 智能报价专家系统</span>
+                    <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-wider">PRO</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 text-xs text-slate-400">
+                        <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                        <span>硬件库已同步</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full border border-slate-200 overflow-hidden cursor-pointer">
+                        <img src="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/a98360672e312beb0fcc5fdaaf57a568.png" alt="User" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Landing Welcome View -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-6 chat-container">
+                <div id="welcome-view" class="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto space-y-8 animate-in fade-in duration-700">
+                    <div class="relative">
+                        <div class="w-24 h-24 rounded-full border-2 border-emerald-100 p-1 bg-white shadow-lg overflow-hidden">
+                            <img src="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/a98360672e312beb0fcc5fdaaf57a568.png" alt="造物潭 AI" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 border-4 border-white rounded-full"></div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">您好，我是造物潭报价助手</h1>
+                        <p class="text-slate-500 leading-relaxed text-sm max-w-md mx-auto">
+                            专注 PCB/PCBA 工业领域的深度工程分析。请上传您的 Gerber 文件或 BOM 清单，我将为您执行全链条成本评估。
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 w-full pt-4">
+                        <!-- Hand-drawn style SVG Cards -->
+                        <div class="p-5 rounded-xl border border-slate-100 bg-slate-50 text-left hover:border-emerald-200 hover:bg-emerald-50 transition-all cursor-pointer group">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg class="w-6 h-6 text-emerald-600 tech-icon" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16M2 6l2 12M22 6l-2 12" />
+                                </svg>
+                                <span class="text-sm font-bold text-slate-800">Gerber 精准解析</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-normal">自动还原层叠拓扑与工艺参数，支持多层板物理特性识别。</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl border border-slate-100 bg-slate-50 text-left hover:border-emerald-200 hover:bg-emerald-50 transition-all cursor-pointer group">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg class="w-6 h-6 text-emerald-600 tech-icon" viewBox="0 0 24 24" stroke="currentColor">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M3 9h18M9 21V9M15 21V9" />
+                                </svg>
+                                <span class="text-sm font-bold text-slate-800">DFM 制造风险</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-normal">识别最小线宽线距、孔径瓶颈及良率隐患，量化生产难度系数。</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl border border-slate-100 bg-slate-50 text-left hover:border-emerald-200 hover:bg-emerald-50 transition-all cursor-pointer group">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg class="w-6 h-6 text-emerald-600 tech-icon" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M12 2v20M17 5l-5-3-5 3M17 19l-5 3-5-3" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                <span class="text-sm font-bold text-slate-800">实时成本预测</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-normal">联动 LME 铜/金价格指数，模拟打样与量产阶段的动态报价策略。</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl border border-slate-100 bg-slate-50 text-left hover:border-emerald-200 hover:bg-emerald-50 transition-all cursor-pointer group">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg class="w-6 h-6 text-emerald-600 tech-icon" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" />
+                                </svg>
+                                <span class="text-sm font-bold text-slate-800">供应链风险预警</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-normal">自动识别 BOM 停产器件及长交期物料，智能推荐高性能替代方案。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-4 border-t border-slate-200 bg-white">
+                <div class="max-w-4xl mx-auto relative">
+                    <div id="file-preview-container" class="flex flex-wrap gap-2 mb-3"></div>
+                    
+                    <div class="flex items-end gap-2 bg-[#F8FAF9] rounded-lg border border-slate-200 p-2 chat-input-focus transition-all">
+                        <input type="file" id="file-input" class="hidden" multiple>
+                        <button id="attach-btn" class="p-2 text-slate-400 hover:text-emerald-600 transition-colors">
+                            <i data-lucide="paperclip" class="w-5 h-5"></i>
+                        </button>
+                        <textarea 
+                            id="user-input"
+                            rows="1"
+                            placeholder="请描述您的 PCB 需求或上传文件..."
+                            class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-2 resize-none max-h-32 text-slate-700"
+                        ></textarea>
+                        <button id="send-btn" class="p-2 bg-[#10B981] text-white rounded hover:bg-[#059669] transition-colors shadow-sm">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex justify-between px-1">
+                        <div class="flex gap-4">
+                            <span class="text-[10px] text-slate-400 flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-slate-400"></span> 输入@调用物料库</span>
+                            <span class="text-[10px] text-slate-400 flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-slate-400"></span> 支持 Gerber/IPC-2581/PDF</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400">Enter 发送</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
